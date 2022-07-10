@@ -39,6 +39,8 @@ class DstOutViewModel : ViewModel() {
                 sourceBitmap.width,
                 sourceBitmap.height, Bitmap.Config.ARGB_8888
             )
+
+            //一张黑色的图进行混合，如果相交部分完全透明则不过滤，不透明则过滤掉
             Canvas(bitmapShade).apply {
                 drawColor(Color.WHITE)
                 drawBitmap(sourceBitmap, 0f, 0f, paint)
@@ -50,11 +52,13 @@ class DstOutViewModel : ViewModel() {
                 sourceBitmap.height, Bitmap.Config.ARGB_8888
             )
             Canvas(bitmapResult).apply {
+                //目标图，黑白图的结果图目标,使用DST_OUT，相交部分透明的不过滤,不透明也就是白色的部分过滤掉
+                //就达到了去除黑色背景的效果
                 drawBitmap(dstBitmap, 0f, 0f, null)
                 drawBitmap(bitmapShade, 0f, 0f, paint)
             }
             val resultCompress = File(ERASE_DIR, "origin.png")
-            ImageUtils.save(bitmapResult, resultCompress, Bitmap.CompressFormat.PNG, true)
+            ImageUtils.save(bitmapShade, resultCompress, Bitmap.CompressFormat.PNG, true)
 
             emitter.onNext(resultCompress)
             emitter.onComplete()
