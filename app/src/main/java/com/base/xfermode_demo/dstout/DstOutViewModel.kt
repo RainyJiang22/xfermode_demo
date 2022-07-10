@@ -35,18 +35,24 @@ class DstOutViewModel : ViewModel() {
             val paint = Paint()
             paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
 
+            val bitmapShade = Bitmap.createBitmap(
+                sourceBitmap.width,
+                sourceBitmap.height, Bitmap.Config.ARGB_8888
+            )
+            Canvas(bitmapShade).apply {
+                drawColor(Color.WHITE)
+                drawBitmap(sourceBitmap, 0f, 0f, paint)
+            }
+
+
             val bitmapResult = Bitmap.createBitmap(
                 sourceBitmap.width,
                 sourceBitmap.height, Bitmap.Config.ARGB_8888
             )
             Canvas(bitmapResult).apply {
-                drawColor(Color.WHITE)
-                drawBitmap(sourceBitmap, 0f, 0f, paint)
-                drawBitmap(dstBitmap, 0f, 0f, paint)
+                drawBitmap(dstBitmap, 0f, 0f, null)
+                drawBitmap(bitmapShade, 0f, 0f, paint)
             }
-
-            paint.xfermode = null
-
             val resultCompress = File(ERASE_DIR, "origin.png")
             ImageUtils.save(bitmapResult, resultCompress, Bitmap.CompressFormat.PNG, true)
 

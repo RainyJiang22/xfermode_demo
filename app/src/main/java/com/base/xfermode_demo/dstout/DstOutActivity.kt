@@ -3,6 +3,7 @@ package com.base.xfermode_demo.dstout
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.base.xfermode_demo.R
 import com.base.xfermode_demo.base.BaseActivity
@@ -22,19 +23,24 @@ class DstOutActivity : BaseActivity<ActivityDstOutBinding>() {
     @SuppressLint("CheckResult")
     override fun init(savedInstanceState: Bundle?) {
 
+
         val sourceBitmap = ImageUtils.getBitmap(R.drawable.source)
         val dstBitmap = ImageUtils.getBitmap(R.drawable.dst)
 
+
+        binding?.ivResult?.setImageBitmap(dstBitmap)
 
         binding?.btnErase?.setOnClickListener {
             viewModel.eraseBlack(sourceBitmap, dstBitmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     sourceBitmap.recycle()
                     dstBitmap.recycle()
                     binding?.ivResult?.setImageBitmap(BitmapFactory.decodeFile(it.absolutePath))
-                }
+                }, {
+                    Log.e("Dst", "init: ${it.message}")
+                })
         }
     }
 
