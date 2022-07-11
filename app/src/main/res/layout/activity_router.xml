@@ -12,4 +12,11 @@
         android:onClick="simple"
         android:text="DST_OUT混合模式" />
 
+    <Button
+        android:id="@+id/btn_src_in"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="simple"
+        android:text="SRC_IN混合模式" />
+
 </LinearLayout>
