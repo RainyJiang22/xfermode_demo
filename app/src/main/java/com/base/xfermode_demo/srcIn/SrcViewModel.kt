@@ -29,13 +29,14 @@ class SrcViewModel : ViewModel() {
                 sourceBitmap.width, sourceBitmap.height, Bitmap.Config.ARGB_8888
             )
             val paint = Paint()
-            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            paint.isAntiAlias = true
 
-            Canvas(bitmapShade).apply {
-                drawOval(
-                    RectF(0f, 0f, sourceBitmap.width.toFloat(), sourceBitmap.height.toFloat()), paint)
-                drawBitmap(sourceBitmap, 0f, 0f, paint)
-            }
+            val canvas = Canvas(bitmapShade)
+            canvas.drawCircle(
+                sourceBitmap.width / 2f, sourceBitmap.height / 2f, sourceBitmap.width / 2f, paint
+            )
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            canvas.drawBitmap(sourceBitmap, 0f, 0f, paint)
 
             val resultCompress = File(DstOutViewModel.ERASE_DIR, "origin.png")
             ImageUtils.save(bitmapShade, resultCompress, Bitmap.CompressFormat.PNG, true)
