@@ -28,7 +28,7 @@ class SrcInTestActivity : BaseActivity<ActivitySrcInBinding>() {
 
         binding?.btnCircle?.setOnClickListener {
             //绘制圆形图片
-            srcViewModel.drawRoundPicture(sourceBitmap)
+            srcViewModel.getRoleColor(sourceBitmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
