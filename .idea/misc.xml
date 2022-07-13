@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/project/AndroidProject/xfermode_demo/app/src/main/res/layout/activity_duff_mode_view.xml" value="0.27291666666666664" />
         <entry key="..\:/project/AndroidProject/xfermode_demo/app/src/main/res/layout/activity_main.xml" value="0.25833333333333336" />
+        <entry key="..\:/project/AndroidProject/xfermode_demo/app/src/main/res/layout/activity_router.xml" value="0.23796296296296296" />
       </map>
     </option>
   </component>

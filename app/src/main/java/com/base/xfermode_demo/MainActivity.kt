@@ -20,6 +20,9 @@ class RouterActivity : BaseActivity<ActivityRouterBinding>() {
             startActivity(Intent(this, SrcInTestActivity::class.java))
         }
 
+        binding?.btnDuff?.setOnClickListener {
+            startActivity(Intent(this, DuffModeActivity::class.java))
+        }
 
     }
 }
